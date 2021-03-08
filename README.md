@@ -1,0 +1,2 @@
+# shell-script
+Learning shell
