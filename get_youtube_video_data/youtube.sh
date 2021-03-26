@@ -27,7 +27,7 @@ function youtube() {
         wget "$_url/$_channelID" -O "$_channel" &> /dev/null
 
         local _channelTitle=$(grep '<title>' "$_channel" | sed 's/<\/title><meta name="description".*//g;s/.*<title>//g;s/ - YouTube.*//g')
-        local _subscribers=$(grep 'subscriberCount' "$_channel" | sed 's/.*subscriberCountText":{"simpleText":"//g;s/".*//g')
+        local _subscribers=$(grep 'subscriberCount' "$_channel" | sed 's/.*subscriberCountText//g;s/.*"}},"simpleText"//g;s/"},"tvBanner".*//g;s/:"//g')
 
         echo ""
         echo -e "$_red    ############# YouTube #############"
