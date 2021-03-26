@@ -42,5 +42,4 @@ function youtube() {
         echo -e "$_bl Data de publicação:$_gr $_postDate $_of"
         echo ""
 }
-
 youtube "$1"
