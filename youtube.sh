@@ -2,7 +2,7 @@
 
 # author: Thiago Henrique Leite <thiago.leite@unifesp.com>
 # description: Get video and channel data on youtube by video url
-# version 2.0
+# version 2.1
 
 function youtube() {
 
@@ -18,8 +18,7 @@ function youtube() {
 
         local _videoTitle=$(grep '<title>' "$_video" | sed -n 1p | sed 's/.*<meta name="title" content="//g' | sed 's/".*//g')
         local _views=$(grep 'videoViewCountRenderer' "$_video" | sed -n 1p | sed 's/<[^>]*>//g;s/ visualizações.*//g;s/.*"//g')
-        local _likes=$(grep 'Gostei' "$_video" | sed 's/marcações \\"Gostei.*//g;s/.*"//g')
-        local _dislikes=$(grep 'Não gostei' "$_video" | sed 's/marcações \\"Não gostei.*//g;s/.*"//g')
+        local _likes=$(grep 'Gostei' "$_video" | sed 's/marcações \\"Gostei.*//g;s/.*"//g' | sed 's/,window.innerHeight);//g' | sed ':a;N;$!ba;s/\n//g')
         local _postDate=$(sed -n '/dateText/{p; q;}' "$_video" | sed 's/videoSecondaryInfoRenderer.*//g;s/[{},"]//g;s/.*://g')
 
         local _url="https://youtube.com/channel"
@@ -38,7 +37,6 @@ function youtube() {
         echo -e "$_bl Vídeo:$_gr $_videoTitle"
         echo -e "$_bl Visualizações:$_gr $_views"
         echo -e "$_bl Likes:$_gr $_likes"
-        echo -e "$_bl Dislikes:$_gr $_dislikes"
         echo -e "$_bl Data de publicação:$_gr $_postDate $_of"
         echo ""
 }
